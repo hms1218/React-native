@@ -1,0 +1,25 @@
+1. 사용자 테마 설정 관리
+- 사용자가 앱 내에서 다크모드와 라이트모드를 선택할 수 
+있게 만들어라
+- Themecontext를 이용하여 테마 상태를 전역적으로 관리하고,
+앱 전체에서 테마가 반영되도록한다.
+
+다크모드&라이트모드 데이터관리
+ThemeContext.js
+
+ThemeComponent.js
+다크모드 -> 배경이 #333, 텍스트 #fff
+라이트모드 -> 배경이 #fff, 텍스트 #000
+
+2. 사용자 로그인 상태 관리
+UserContext
+- 유저의 상태를 담은 state 처음에는 null
+provider에서 제공해줘야 하는것
+- 유저객체 {name : 'John Doe'}
+유저의 state, login 함수(state에 유저 객체세팅),
+logout함수(state에 값을 null로 세팅)
+
+HomeScreen
+로그인이 된 상태라면 -> Welcome, John Doe / 로그아웃 버튼
+로그인이 안된 상태라면 -> 로그인 버튼
+

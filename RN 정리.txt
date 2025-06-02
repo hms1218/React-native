@@ -1,0 +1,149 @@
+expo cli
+복잡한 설정 없이 빠르게 앱을 만들 수 있다.
+어플리케이션 실행 qr코드를 통해서 내 휴대폰으로 실행해볼수있다. (expo go앱 설치)
+
+단점 :
+사용할 수 있는 기능에 제한이 있다.
+네이티브코드 수정이 불가능하다.
+
+React Native CLI
+expo 없이 순수 React Native환경에서 앱을 개발할 수 있도록 도와준다.
+Native코드를 직접 다루는 환경이다.
+React Native 앱을 시작부터 끝까지 직접 설정하고 커스터마이징 할 수 있다.
+
+node.js -> npm(node package manager) 패키지를 install하려고 사용
+python -> expo-cli 환경에서는 거의 필요가 없음
+android studio -> 에뮬레이터를 활용
+
+SDK(Software Development Kit)
+안드로이드 앱을 개발하기 위한 도구들과 API들의 모음
+에뮬레이터
+플랫폼 API(각 안드로이드 버전)
+Build 도구(앱을 실제 실행 가능한 APK파일로 만드는 도구)
+SDK Tools(안드로이드 앱 개발에 필요한 기본적인 툴 모음)
+
+에뮬레이터
+컴퓨터에서 가상의 안드로이드 스마트폰을 만들어 앱을 테스트할 수 있게 해주는 프로그램이다.
+실제 기기가 없어도 컴퓨터에서 앱이 어떻게 동작하는지 확인할 수 있다.
+여러 기기의 모델이나 화면 크기, 안드로이드 버전을 설정할 수 있어서 다양한 기기에서 앱이 어떻게 작동하는지 확인할 수 있다.
+
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+
+컴포넌트를 만들어서 사용
+재사용할 수 있는 조립 블록으로 화면에 나타나는 UI 조각요소
+
+특징)
+독립적이다.
+컴포넌트는 다른 코드와 독립적으로 동작한다.
+한 곳에서 수정해도 다른 부분에 영향을 주지 않는다.
+
+유지보수가 용이하다.
+화면의 각 부분을 작은 UI조각으로 분리해서 만들기 때문에 필요한 부분만 수정할 수 있다.
+
+JSX문법
+JavaScript XML의 줄임말
+자바스크립트 코드 안에 HTML태그처럼 생긴 문법을 사용할 수 있게 해주는 문법
+
+JSX문법을 사용한다고 실제로 브라우저가 이해할 수 있는 것은 아니고 Babel이라는 트랜스파일러를 통해
+순수한 자바스크립트 코드로 변환되는 트랜스파일링 과정이 필요하다.
+
+JSX문법 -> React.createElement() 함수로 변환이 된다.
+
+const element = <button disabled={true}>Click me</button>
+---> React.createElement(태그이름,속성(객체로 넘어감), 자식요소/컨텐츠
+const element = React.createElement(
+	"button",
+	{disabled : true},
+	"Click me"
+)
+
+<div>
+    <h1>Hello</h1>
+</div>
+----->
+const element = React.createElement(
+	"div",
+	null,
+	React.createElement("h1,null,"Hello")
+)
+
+내장컴포넌트
+div -> View
+Text
+TextInput
+ScrollView
+Button -> 할 수 있는게 적으면 onPress
+Pressable -> 여러가지 스타일링이 가능 onPress, onPressIn, onPressOut, onLongPress
+
+입력할 때 state에 보다 간단하게 텍스트를 전달하는 법
+onChageText
+
+스타일을 주는 방법
+- 객체 형식으로 준다.
+- 속성은 카멜표현식으로 쓴다.
+
+1. 인라인으로 주기
+
+2. 클래스 스타일링
+<View style={styles.container}>
+
+</View>
+접근방식은 자바스크립트에서 객체 접근하는 것과 같다.
+const styles = StyleSheet.create({
+	container : {
+		
+	}
+})
+
+3. 외부 스타일시트를 만들고 import해서 사용하기
+.css로 만드는게 아니라 js파일을 만들고 거기서 StyleSheet를 활용
+
+html, 리액트, 리액트 네이티브 요소의 배치가 중요하다
+flex를 이용하는게 가장 간단하다.
+
+컨테이너 : 다른 요소들을 감싸는 컴포넌트
+flex-direction : 요소들을 어떤 방향으로 배치할것이냐
+justify-content : 주축을 기준으로 요소들의 위치를 배치
+align-items : 주축 반대를 기준으로 요소들의 위치를 배치
+
+Platform
+운영체제에 따라 다른 코드를 실행할 수 있게 해주는 모듈
+Platform.OS : 현재 앱이 실행중인 플랫폼을 반환한다.
+IOS는 ios, Android는 android라고 문자열 값을 반환한다.
+
+Platform.version
+운영체제의 버전 번호를 가져오는 속성
+-> 29버전
+
+Styled-component
+스타일이 적용된 상태의 컴포넌트
+
+const 사용할 컴포넌트명 = styled.View(컴포넌트)` (백틱``)
+	css코드
+`
+
+const MyButton = styled.Pressable`
+	background-color = ${props => props.title === '라이트' ? '#fff' : '#000')
+`
+
+<MyButton title="라이트">
+	
+</MyButton>
+
+attrs 사용하기
+스타일드 컴포넌트를 사용하면 스타일을 작성하는 곳에서 컴포넌트의 속성도 설정할 수 있다.
+속성을 설정할 때도 전달된 props를 이용할 수 있으므로 props의 값에 따라 속성을 변경할 수 있다.
+
+const StyledInput = styled.TextInput.attrs(props => ({
+	placeholder : 'Enter a Text...',
+	placeholderTextColor : props.borderColor,
+}))`
+	css코드
+`
+
+StatusBar : 상태바
+- barStyle : "light-content","dark-content","default"
+
+
+
+

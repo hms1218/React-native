@@ -1,0 +1,19 @@
+장바구니 상태관리
+Context API + useReducer
+
+리듀서 함수에서는
+ADD_ITEM -> 장바구니에 상품을 추가
+REMOVE_ITEM -> 장바구니에 상품을 제거
+
+CartContext.js
+const [cart, dispatch] = useReducer(cartReducer,[])
+
+상품 객체 {id: Date.now().toString(), name: 'New Item'}
+
+CartScreen.js
+상품 추가버튼
+상품이 추가될 때마다 버튼 아래에 나열
+상품이름 문자열 옆에 삭제버튼
+	버튼
+상품문자열	삭제버튼
+상품문자열	삭제버튼
