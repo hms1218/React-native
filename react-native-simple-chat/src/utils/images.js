@@ -5,5 +5,6 @@ const prefix = 'https://firebasestorage.googleapis.com/v0/b/react-native-simple-
 //실제 사용할 때는 token이 변경될 뿐 아니라, 로그인 화면에서는
 //아직 로그인 한게 아니기 때문에 token이 없는 상태로 접근이 가능해야한다.
 export const images = {
-    logo : `${prefix}/logo.png?alt=media`
+    logo : `${prefix}/logo.png?alt=media`,
+    photo : `${prefix}/photo.png?alt=media`,
 }

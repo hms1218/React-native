@@ -12,4 +12,12 @@ export const theme = {
     background: colors.white,
     text: colors.black,
     imageBackground: colors.gray_0,
+    label: colors.gray_1,
+    inputPlaceholder: colors.gray_1,
+    inputBorder: colors.gray_1,
+    errorText: colors.red,
+    buttonBackground: colors.blue,
+    buttonTitle: colors.white,
+    buttonUnFilledTitle: colors.blue,
+    headerTintColor: colors.black,
 }
