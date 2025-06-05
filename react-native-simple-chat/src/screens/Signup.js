@@ -1,10 +1,11 @@
 import styled from "styled-components";
-import { Text } from "react-native";
+import { Alert, Text } from "react-native";
 import { Image, Input, Button } from "../components";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { validateEmail, removeWhitespace } from "../utils/common";
 import { useEffect, useRef, useState } from "react";
 import { images } from "../utils/images";
+import { signup } from "../utils/firebase";
 
 const Container = styled.View`
     flex: 1;
@@ -67,8 +68,14 @@ const Signup = () => {
         )
     },[name,email,password,passwordConfirm,errorMessage])
 
-    const _handleSignupButtonPress = () => {
-
+    const _handleSignupButtonPress = async() => {
+        try {
+            const user = await signup({email,password,name,photoURL})
+            console.log(user);
+            Alert.alert('Signup Success',user.email);
+        } catch (error) {
+            Alert.alert("Signup Error", error.message)
+        }
     }
 
     return(
@@ -78,7 +85,14 @@ const Signup = () => {
             enableOnAndroid={true}
         >
             <Container>
-                <Image rounded url={photoURL}/>
+                <Image 
+                    rounded 
+                    url={photoURL}
+                    showButton
+                    onChangeImage={
+                        url => setPhotoURL(url)
+                    }
+                />
                 <Input
                     label="Name"
                     value={name}

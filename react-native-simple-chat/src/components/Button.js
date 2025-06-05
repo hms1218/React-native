@@ -27,6 +27,7 @@ const Button = ({
     title,
     onPress,
     isFilled = true,
+    //disabled = false가 활성화 / true가 비활성화
     disabled = false,
 }) => {
     return(

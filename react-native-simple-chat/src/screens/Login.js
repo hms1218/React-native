@@ -1,10 +1,11 @@
 import styled from "styled-components";
-import { Text, Pressable, KeyboardAvoidingView } from "react-native";
+import { Text, Pressable, KeyboardAvoidingView, Alert } from "react-native";
 import { Image, Input, Button } from "../components/index";
 import { images } from "../utils/images";
 import { useState, useRef, useEffect } from "react";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { removeWhitespace, validateEmail } from "../utils/common";
+import { login } from "../utils/firebase";
 
 const Container = styled.View`
     flex : 1;
@@ -50,14 +51,20 @@ const Login = ({navigation}) => {
         setPassword(removeWhitespace(password));
     }
 
-    const _handleLoginButtonPress = () => {
-
+    //이메일과 비밀번호를 가지고 로그인버튼을 눌렀을 때
+    const _handleLoginButtonPress = async() => {
+        try {
+            const user = await login({email,password});
+            Alert.alert("Login Success",user.email)
+        } catch (error) {
+            Alert.alert("Login Error",error.message)      
+        }
     }
 
     return(
         <KeyboardAwareScrollView
-            contentContainerStyle={{flex:1}}
-            extraScrollHeight={80}
+            contentContainerStyle={{flexGrow:1}}
+            extraScrollHeight={20}
             enableOnAndroid={true}
         >
             <Container>
