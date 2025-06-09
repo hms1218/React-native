@@ -3,9 +3,10 @@ import { Alert, Text } from "react-native";
 import { Image, Input, Button } from "../components";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { validateEmail, removeWhitespace } from "../utils/common";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useContext } from "react";
 import { images } from "../utils/images";
 import { signup } from "../utils/firebase";
+import { ProgressContext, UserContext } from "../contexts/index";
 
 const Container = styled.View`
     flex: 1;
@@ -32,6 +33,9 @@ const Signup = () => {
     const [passwordConfirm, setPasswordConfirm] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
     const [disabled, setDisabled] = useState(true);
+
+    const {spinner} = useContext(ProgressContext);
+    const {dispatch} = useContext(UserContext)
 
     //프로필사진 이미지 URL
     const [photoURL, setPhotoURL] = useState(images.photo);
@@ -70,11 +74,15 @@ const Signup = () => {
 
     const _handleSignupButtonPress = async() => {
         try {
+            spinner.start();
             const user = await signup({email,password,name,photoURL})
+            dispatch(user);
             console.log(user);
             Alert.alert('Signup Success',user.email);
         } catch (error) {
             Alert.alert("Signup Error", error.message)
+        } finally {
+            spinner.stop();
         }
     }
 

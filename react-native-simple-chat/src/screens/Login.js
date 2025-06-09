@@ -6,6 +6,8 @@ import { useState, useRef, useEffect } from "react";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { removeWhitespace, validateEmail } from "../utils/common";
 import { login } from "../utils/firebase";
+import { ProgressContext, UserContext } from "../contexts/index";
+import { useContext } from "react";
 
 const Container = styled.View`
     flex : 1;
@@ -29,6 +31,9 @@ const Login = ({navigation}) => {
     const [errorMessage, setErrorMessage] = useState(''); //에러 메시지 상태관리
     const [disabled, setDisabled] = useState(true); //버튼의 활성화 상태관리
     const passwordRef = useRef();
+
+    const {spinner} = useContext(ProgressContext);
+    const {dispatch} = useContext(UserContext);
 
     //email,password,errorMessage의 state값이 변할때마다
     //조건에 맞게 disabled의 state에 값을 세팅한다.
@@ -54,10 +59,15 @@ const Login = ({navigation}) => {
     //이메일과 비밀번호를 가지고 로그인버튼을 눌렀을 때
     const _handleLoginButtonPress = async() => {
         try {
+            spinner.start() //inProgress가 true로 변경
             const user = await login({email,password});
+            //UserContext의 dispatch함수를 통해 user의 상태가 인증된 사용자 정보로 변경된다.
+            dispatch(user);
             Alert.alert("Login Success",user.email)
         } catch (error) {
             Alert.alert("Login Error",error.message)      
+        } finally{
+            spinner.stop()
         }
     }
 

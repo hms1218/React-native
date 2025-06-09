@@ -81,6 +81,10 @@ const uploadImage = async (uri) => {
     return await getDownloadURL(storageRef);
 }
 
+export const logout = async () => {
+    return await auth.signOut;
+}
+
 
 // - signInWithEmailAndPassword() : 이메일과 비밀번호로 로그인 시도를 하는 함수
 //     - Promise를 반환하고, 성공하면 userCredential 객체를, 실패하면 error를 반환한다.

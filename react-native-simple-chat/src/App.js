@@ -8,6 +8,7 @@ import { ThemeProvider } from "styled-components";
 import { theme } from "./theme";
 import Navigation from "./navigations";
 import { images } from "./utils/images";
+import { ProgressProvider, UserProvider } from "./contexts/index";
 
 //앱 시작 시 스플래시 화면이 자동으로 사라지지 않도록 설정
 //이 함수 호출 이후로는 내가 직접 hideAsync()를 호출할 때까지 스플래시 화면이 유지된다.
@@ -73,8 +74,12 @@ const App = () => {
         //스타일드 컴포넌트의 ThemeProvider 컴포넌트를 사용해 스타일드 컴포넌트에서 정의된 theme를
         //사용할 수 있도록 작성했다.
         <ThemeProvider theme={theme}>
-            <StatusBar barStyle='dark-content' />
-            <Navigation />
+            <UserProvider>
+                <ProgressProvider>
+                    <StatusBar barStyle='dark-content' />
+                    <Navigation />
+                </ProgressProvider>
+            </UserProvider>
         </ThemeProvider>
     )
 }
