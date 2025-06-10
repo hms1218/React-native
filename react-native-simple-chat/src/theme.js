@@ -9,8 +9,12 @@ const colors = {
 }
 
 export const theme = {
-    background: colors.white, //배경색
-    text: colors.black, //글자색
+    //배경색
+    background: colors.white,
+
+    //글자색
+    text: colors.black, 
+
     //이미지 관련
     imageBackground: colors.gray_0, 
     imageButtonBackground: colors.gray_1,
@@ -21,14 +25,20 @@ export const theme = {
     inputPlaceholder: colors.gray_1,
     inputBorder: colors.gray_1,
     errorText: colors.red,
+    inputDisabledBackground: colors.gray_0,
 
     //버튼관련
     buttonBackground: colors.blue,
     buttonTitle: colors.white,
     buttonUnFilledTitle: colors.blue,
     headerTintColor: colors.black,
+    buttonLogout: colors.red,
 
     //Spinner
     spinnerBackground: colors.black,
     spinnerIndicator: colors.white,
+
+    //Tab 스타일
+    tabActiveColor: colors.blue,
+    tabInactiveColor: colors.gray_1,
 }
