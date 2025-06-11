@@ -17,6 +17,8 @@ import {
     getFirestore,
     doc,
     setDoc,
+    addDoc,
+    serverTimestamp,
  } from "firebase/firestore";
 
 //initializeApp()
@@ -46,9 +48,9 @@ export const login = async({email, password}) => {
     // } catch (error) {
     //     console.error("Login error : ",error);
     // }
-    const userCredential = await signInWithEmailAndPassword(auth,email,password);
+    const {user} = await signInWithEmailAndPassword(auth,email,password);
         
-    return userCredential.user;
+    return user;
 }
 
 export const signup = async({email,password,name,photoURL}) => {
@@ -83,7 +85,7 @@ const uploadImage = async (uri) => {
     const blob = await response.blob(); //blob() : binaryLargeObject의 약자
     const {uid} = auth.currentUser; //현재 로그인한 유저의 uid를 가져온다.
     // const storage = getStorage(app); //Storage에 저장할 파일 경로를 설정
-    const storageRef = ref(storage, `profile/${uid}/photo.png`);
+    const storageRef = ref(storage, `/profile/${uid}/photo.png`);
 
     //파일을 Storage에 업로드, 타입은 image/png로 명시
     await uploadBytes(storageRef, blob, {
@@ -148,6 +150,21 @@ export const createChannel = async({title, description}) => {
 
     //6. 생성된 문서 ID반환
     return id;
+}
+
+export const createMessage = async ({channelId, text}) => {
+    console.log('Sending message to channel : ', channelId, text);
+
+    try {
+        const collectionRef = collection(db, `channels/${channelId}/messages`)
+        await addDoc(collectionRef,{
+            text,
+            createAt: serverTimestamp()
+        });
+        console.log('Message added successfully!')
+    } catch (error) {
+        console.error('Error adding message: ',error)
+    }
 }
 
 

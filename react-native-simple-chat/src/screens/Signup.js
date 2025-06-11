@@ -97,9 +97,10 @@ const Signup = () => {
                     rounded 
                     url={photoURL}
                     showButton
-                    onChangeImage={
-                        url => setPhotoURL(url)
-                    }
+                    onChangeImage={url => {
+                        console.log('s_url :',url);
+                        setPhotoURL(url)
+                    }}
                 />
                 <Input
                     label="Name"

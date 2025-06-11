@@ -1,9 +1,8 @@
 import styled, { ThemeContext } from "styled-components";
-import { logout } from "../utils/firebase";
 import { ProgressContext, UserContext } from "../contexts";
 import { useContext, useState } from "react";
 import { Image, Input, Button } from "../components";
-import { updateUserPhoto, getCurrentUser } from "../utils/firebase";
+import { updateUserPhoto, getCurrentUser, logout } from "../utils/firebase";
 import { Alert } from "react-native";
 
 const Container = styled.View`
@@ -43,8 +42,10 @@ const Profile = () => {
             const updateUser = await updateUserPhoto(url);
             setPhotoUrl(updateUser.photoUrl);
         } catch (error) {
-            Alert.alert('Photo Error',error.message)
-            spinner.stop();
+            console.log(url);
+            Alert.alert('Photo Error',error.message)  
+        } finally {
+            spinner.stop(); 
         }
     }
 
